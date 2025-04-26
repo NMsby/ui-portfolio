@@ -1,6 +1,6 @@
 // Header scroll class
 $(window).on("scroll", function () {
-    let scroll = $(window).scrollTop();
+    var scroll = $(window).scrollTop();
     if (scroll >= 80) {
         $("#site-header").addClass("nav-fixed");
     } else {
@@ -8,27 +8,74 @@ $(window).on("scroll", function () {
     }
 });
 
-// Mobile menu
+// Mobile menu toggle
 $(document).ready(function () {
     $('.navbar-toggler').click(function () {
         $('body').toggleClass('noscroll');
+        $(this).toggleClass('collapsed');
+    });
+
+    // Add dropdown toggle functionality for mobile
+    $('.dropdown-toggle').click(function(e) {
+        if (window.innerWidth < 992) {
+            e.preventDefault();
+            $(this).parent().toggleClass('show');
+            $(this).next('.dropdown-menu').toggleClass('show');
+        }
+    });
+
+    // Close mobile menu when clicking outside
+    $(document).click(function(e) {
+        if (!$(e.target).closest('.navbar-collapse, .navbar-toggler').length) {
+            $('.navbar-collapse').removeClass('show');
+            $('.navbar-toggler').addClass('collapsed');
+            $('body').removeClass('noscroll');
+        }
+    });
+
+    // Active link highlighting based on scroll position
+    $(window).on('scroll', function() {
+        $('.navbar-nav .nav-link').each(function() {
+            var currLink = $(this);
+            var refElement = $(currLink.attr('href'));
+
+            if (refElement.length) {
+                var offsetTop = refElement.offset().top - 100;
+                var offsetBottom = offsetTop + refElement.outerHeight();
+
+                if ($(window).scrollTop() >= offsetTop && $(window).scrollTop() <= offsetBottom) {
+                    $('.navbar-nav .nav-link').removeClass('active');
+                    currLink.addClass('active');
+                }
+            }
+        });
     });
 });
 
-// Search form toggle
+// Search functionality
+// Search functionality
 $('.cd-search-trigger').on('click', function(event){
     event.preventDefault();
-    toggleSearch();
-});
+    $('.cd-search').toggleClass('is-visible');
 
-function toggleSearch() {
-    if($('.cd-search').hasClass('is-visible')){
-        $('.cd-search').removeClass('is-visible');
-    } else {
-        $('.cd-search').addClass('is-visible');
+    if ($('.cd-search').hasClass('is-visible')) {
         $('.cd-search input[type="search"]').focus();
     }
-}
+
+    // Close search when clicking elsewhere
+    $('body').on('click', function(e) {
+        if (!$(e.target).closest('.cd-search, .cd-search-trigger').length) {
+            $('.cd-search').removeClass('is-visible');
+        }
+    });
+});
+
+// Close search on escape key
+$(document).keyup(function(e) {
+    if (e.key === "Escape" && $('.cd-search').hasClass('is-visible')) {
+        $('.cd-search').removeClass('is-visible');
+    }
+});
 
 // Dark mode toggle
 const toggleSwitch = document.querySelector('#checkbox');
