@@ -2236,14 +2236,17 @@ img {
 
 .footer-contact-info ul {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     list-style: none;
     padding: 0;
     margin: 0;
+    gap: 30px;
 }
 
-.footer-contact-info ul li {
+.footer-contact-info li {
     margin-bottom: 15px;
     transition: all 0.3s ease;
 }
@@ -2379,6 +2382,10 @@ img {
         padding-bottom: 40px;
     }
 
+    .footer-contact-info ul {
+        gap: 20px;
+    }
+
     .social ul {
         justify-content: center;
         margin-top: 20px;
@@ -2397,6 +2404,11 @@ img {
     .footer .py-5 {
         padding-top: 50px;
         padding-bottom: 30px;
+    }
+
+    .footer-contact-info ul {
+        flex-direction: column; /* Stack vertically on mobile */
+        gap: 15px;
     }
 
     .footer a.logo {
