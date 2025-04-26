@@ -95,3 +95,51 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (textArray.length) setTimeout(type, newTextDelay + 250);
 });
+
+// Progress bar animation on scroll
+document.addEventListener('DOMContentLoaded', function() {
+    function animateProgressBars() {
+        const progressSection = document.querySelector('#skills');
+        const progressBars = document.querySelectorAll('.progress-bar');
+
+        // Add initial class to set width to 0
+        progressBars.forEach(bar => {
+            bar.classList.add('progress-bar-animate');
+        });
+
+        // Function to check if element is in viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom >= 0
+            );
+        }
+
+        // Function to animate progress bars when in viewport
+        function checkProgress() {
+            if (isElementInViewport(progressSection)) {
+                progressBars.forEach(bar => {
+                    const width = bar.getAttribute('aria-valuenow') + '%';
+
+                    // Remove the animate class to trigger the transition
+                    setTimeout(function() {
+                        bar.classList.remove('progress-bar-animate');
+                        bar.style.width = width;
+                    }, 200);
+                });
+
+                // Remove scroll listener once animation is triggered
+                window.removeEventListener('scroll', checkProgress);
+            }
+        }
+
+        // Add scroll listener
+        window.addEventListener('scroll', checkProgress);
+
+        // Check on initial load as well
+        checkProgress();
+    }
+
+    animateProgressBars();
+});

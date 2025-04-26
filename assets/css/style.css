@@ -741,3 +741,57 @@
         margin-bottom: 20px;
     }
 }
+
+/* Skills Section Styles */
+.w3l-skills {
+    background-color: #fff;
+}
+
+.progress-info {
+    margin-bottom: 30px;
+}
+
+.progress-tittle {
+    font-size: 16px;
+    color: #3f3a64;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.progress {
+    height: 8px;
+    background-color: #eee;
+    overflow: hidden;
+    border-radius: 30px;
+}
+
+.progress-bar {
+    background-color: #ff6e65;
+    height: 8px;
+    border-radius: 30px;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 1rem 1rem;
+    animation: progress-animation 1s linear infinite;
+}
+
+@keyframes progress-animation {
+    0% {
+        background-position: 1rem 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+/* Add animation to progress bars on scroll */
+.progress-bar-animate {
+    width: 0 !important;
+    transition: width 1.5s ease-in-out;
+}
+
+/* Responsive styles */
+@media (max-width: 991px) {
+    .w3l-content-6 p {
+        margin-bottom: 30px;
+    }
+}
