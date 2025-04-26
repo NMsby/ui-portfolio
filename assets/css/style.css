@@ -2025,56 +2025,147 @@ img {
 
 /* Client Logos Section Styles */
 .w3l-brands {
-    background-color: #f8f9fa;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.w3l-brands::before {
+    content: '';
+    position: absolute;
+    left: -100px;
+    bottom: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 110, 101, 0.05);
+    z-index: 0;
+}
+
+/* Logo carousel */
+.owl-carousel {
+    position: relative;
+    z-index: 1;
 }
 
 .owl-carousel .item {
-    padding: 0 20px;
+    padding: 20px;
     text-align: center;
+    transition: all 0.4s ease;
+}
+
+.owl-carousel .item:hover {
+    transform: translateY(-10px);
 }
 
 .owl-carousel .item img {
     max-width: 150px;
     margin: 0 auto;
+    filter: grayscale(100%);
     opacity: 0.7;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .owl-carousel .item:hover img {
+    filter: grayscale(0%);
     opacity: 1;
 }
 
-/* Owl Carousel Navigation Styles */
+/* Owl Carousel Navigation */
 .owl-theme .owl-nav {
-    margin-top: 30px;
+    margin-top: 25px;
+    text-align: center;
 }
 
 .owl-theme .owl-nav [class*=owl-] {
     color: #fff;
-    font-size: 14px;
-    margin: 5px;
-    padding: 7px 12px;
-    background: #ff6e65;
+    background: var(--primary-color);
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    margin: 0 5px;
     border-radius: 50%;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .owl-theme .owl-nav [class*=owl-]:hover {
-    background: #3f3a64;
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.owl-theme .owl-dots {
+    margin-top: 20px;
 }
 
 .owl-theme .owl-dots .owl-dot span {
     width: 10px;
     height: 10px;
-    margin: 5px 7px;
+    margin: 0 5px;
     background: #d6d6d6;
-    border-radius: 30px;
-    transition: opacity .2s ease;
+    border-radius: 50%;
+    transition: all 0.3s ease;
 }
 
 .owl-theme .owl-dots .owl-dot.active span,
 .owl-theme .owl-dots .owl-dot:hover span {
-    background: #ff6e65;
+    background: var(--primary-color);
+    transform: scale(1.2);
+}
+
+/* Carousel animation */
+.logo-animation {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+}
+
+.logo-animation.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive styles */
+@media (max-width: 991px) {
+    .w3l-brands {
+        padding: 60px 0;
+    }
+
+    .owl-carousel .item img {
+        max-width: 130px;
+    }
+}
+
+@media (max-width: 768px) {
+    .w3l-brands {
+        padding: 50px 0;
+    }
+
+    .owl-carousel .item {
+        padding: 15px;
+    }
+
+    .owl-carousel .item img {
+        max-width: 110px;
+    }
+}
+
+@media (max-width: 480px) {
+    .w3l-brands {
+        padding: 40px 0;
+    }
+
+    .owl-carousel .item img {
+        max-width: 100px;
+    }
+
+    .owl-theme .owl-nav [class*=owl-] {
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+    }
 }
 
 /* Footer Styles */

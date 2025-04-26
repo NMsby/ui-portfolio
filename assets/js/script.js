@@ -562,28 +562,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Client Logos Carousel
 document.addEventListener('DOMContentLoaded', function() {
-    $("#owl-demo").owlCarousel({
-        loop: true,
-        margin: 10,
-        nav: false,
-        autoplay: true,
-        autoplayTimeout: 3000,
-        autoplayHoverPause: true,
-        responsive: {
-            0: {
-                items: 2
-            },
-            568: {
-                items: 3
-            },
-            768: {
-                items: 4
-            },
-            1000: {
-                items: 5
+    // Get elements
+    const brandsSection = document.querySelector('.w3l-brands');
+    const owlCarousel = document.querySelector('#owl-demo');
+
+    // Add animation class
+    if (brandsSection) {
+        brandsSection.classList.add('logo-animation');
+    }
+
+    // Initialize Owl Carousel with enhanced options
+    if (owlCarousel) {
+        $(owlCarousel).owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            navText: [
+                "<i class='fas fa-chevron-left'></i>",
+                "<i class='fas fa-chevron-right'></i>"
+            ],
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            smartSpeed: 1000,
+            responsive: {
+                0: {
+                    items: 2,
+                    margin: 10
+                },
+                480: {
+                    items: 3
+                },
+                768: {
+                    items: 4
+                },
+                992: {
+                    items: 5
+                }
             }
+        });
+    }
+
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+            rect.bottom >= 0
+        );
+    }
+
+    // Function to animate brands section when in viewport
+    function animateBrandsSection() {
+        if (brandsSection && isInViewport(brandsSection)) {
+            brandsSection.classList.add('animate');
+
+            // Remove scroll listener once animation is triggered
+            window.removeEventListener('scroll', animateBrandsSection);
         }
-    });
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', animateBrandsSection);
+
+    // Check on initial load as well
+    setTimeout(animateBrandsSection, 500);
 });
 
 // Back to top button
