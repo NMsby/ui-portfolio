@@ -348,3 +348,155 @@
         display: none;
     }
 }
+
+/* Hero Section Styles */
+.w3l-banner {
+    background-image: url(../images/banner1.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    align-items: center;
+    padding-top: 5rem;
+    min-height: 100vh;
+}
+
+.w3l-banner:before {
+    content: "";
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    min-height: 100%;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.w3l-banner h1 {
+    font-size: 50px;
+    line-height: 60px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.w3l-banner h3 {
+    font-size: 24px;
+    line-height: 34px;
+    color: #eee;
+    font-weight: 600;
+}
+
+.w3l-banner p {
+    color: #eee;
+    font-size: 18px;
+    line-height: 28px;
+    max-width: 600px;
+}
+
+/* Typing animation styles */
+.typed-text {
+    font-weight: 600;
+    position: relative;
+    color: #ff6e65;
+}
+
+.cursor {
+    display: inline-block;
+    width: 3px;
+    background-color: #fff;
+    margin-left: 2px;
+    animation: blink 1s infinite;
+}
+
+.cursor.typing {
+    animation: none;
+}
+
+@keyframes blink {
+    0% { background-color: #fff; }
+    49% { background-color: #fff; }
+    50% { background-color: transparent; }
+    99% { background-color: transparent; }
+    100% { background-color: #fff; }
+}
+
+/* Button styles */
+.btn-style {
+    padding: 12px 35px;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 600;
+    transition: 0.3s ease-in;
+    border-radius: 30px;
+}
+
+.transparent-btn {
+    color: #fff;
+    border: 2px solid #fff;
+    background: transparent;
+}
+
+.transparent-btn:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .w3l-banner h1 {
+        font-size: 45px;
+        line-height: 55px;
+    }
+}
+
+@media (max-width: 991px) {
+    .w3l-banner {
+        min-height: 600px;
+    }
+
+    .w3l-banner h1 {
+        font-size: 40px;
+        line-height: 50px;
+    }
+
+    .w3l-banner h3 {
+        font-size: 22px;
+        line-height: 32px;
+    }
+
+    .w3l-banner p {
+        font-size: 16px;
+        line-height: 26px;
+    }
+}
+
+@media (max-width: 768px) {
+    .w3l-banner {
+        min-height: 550px;
+    }
+
+    .w3l-banner h1 {
+        font-size: 35px;
+        line-height: 45px;
+    }
+}
+
+@media (max-width: 480px) {
+    .w3l-banner h1 {
+        font-size: 30px;
+        line-height: 40px;
+    }
+
+    .w3l-banner h3 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .btn-style {
+        padding: 10px 30px;
+        font-size: 15px;
+    }
+}
