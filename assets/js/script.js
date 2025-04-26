@@ -153,6 +153,87 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// About Section Animations
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+            rect.bottom >= 0
+        );
+    }
+
+    // Function to add animation classes when element is in viewport
+    function animateOnScroll() {
+        const aboutSection = document.querySelector('#about');
+        const aboutImage = document.querySelector('#about .my-image');
+        const aboutInfo = document.querySelector('#about .w3l-about-info');
+
+        if (aboutSection && isInViewport(aboutSection)) {
+            if (aboutImage && !aboutImage.classList.contains('animate')) {
+                aboutImage.classList.add('animate', 'fadeInLeft');
+            }
+
+            if (aboutInfo && !aboutInfo.classList.contains('animate')) {
+                aboutInfo.classList.add('animate', 'fadeInRight');
+            }
+        }
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', animateOnScroll);
+
+    // Check for elements in viewport on page load
+    setTimeout(animateOnScroll, 500);
+
+    // Add animation classes to stylesheet
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translate3d(-50px, 0, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translate3d(50px, 0, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        
+        .fadeInLeft {
+            animation: fadeInLeft 1s ease-out forwards;
+        }
+        
+        .fadeInRight {
+            animation: fadeInRight 1s ease-out forwards;
+        }
+        
+        #about .my-image,
+        #about .w3l-about-info {
+            opacity: 0;
+        }
+        
+        #about .my-image.animate,
+        #about .w3l-about-info.animate {
+            opacity: 1;
+        }
+    `;
+
+    document.head.appendChild(style);
+});
+
 // Progress bar animation on scroll
 document.addEventListener('DOMContentLoaded', function() {
     function animateProgressBars() {
