@@ -354,6 +354,58 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(animateSkillsSection, 500);
 });
 
+// Features Section Animations
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const featuresSection = document.querySelector('#about1');
+    const featureItems = document.querySelectorAll('.grids_info');
+    const featureImage = document.querySelector('.w3l-whychooseus .my-image');
+
+    // Add animation classes
+    featureItems.forEach((item, index) => {
+        item.classList.add('feature-item-animation');
+        // Set different delays for each item
+        item.style.transitionDelay = `${index * 0.1}s`;
+    });
+
+    if (featureImage) {
+        featureImage.classList.add('feature-image-animation');
+    }
+
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+            rect.bottom >= 0
+        );
+    }
+
+    // Function to animate features section when in viewport
+    function animateFeaturesSection() {
+        if (featuresSection && isInViewport(featuresSection)) {
+            // Animate feature items
+            featureItems.forEach(item => {
+                item.classList.add('animate');
+            });
+
+            // Animate feature image
+            if (featureImage) {
+                featureImage.classList.add('animate');
+            }
+
+            // Remove scroll listener once animation is triggered
+            window.removeEventListener('scroll', animateFeaturesSection);
+        }
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', animateFeaturesSection);
+
+    // Check on initial load as well
+    setTimeout(animateFeaturesSection, 500);
+});
+
 // Counter animation for stats section
 document.addEventListener('DOMContentLoaded', function() {
     // Function to animate counters
