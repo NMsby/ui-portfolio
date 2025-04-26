@@ -1680,6 +1680,7 @@ img {
 /* Feature grid container */
 .two-grids {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     grid-gap: 40px 30px;
     position: relative;
     z-index: 1;
@@ -1844,6 +1845,7 @@ img {
     }
 
     .two-grids {
+        grid-template-columns: 1fr;
         grid-gap: 20px 15px;
     }
 }

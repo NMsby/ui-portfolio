@@ -364,8 +364,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add animation classes
     featureItems.forEach((item, index) => {
         item.classList.add('feature-item-animation');
-        // Set different delays for each item
-        item.style.transitionDelay = `${index * 0.1}s`;
+        // Set different delays based on row and column position
+        let row = Math.floor(index / 2); // Calculate row position
+        let delay = row * 0.2 + (index % 2) * 0.1; // Stagger by row, then column
+        item.style.transitionDelay = `${delay}s`;
     });
 
     if (featureImage) {
