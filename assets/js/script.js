@@ -630,28 +630,98 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(animateBrandsSection, 500);
 });
 
-// Back to top button
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {
-    scrollFunction();
-};
+// Footer Section Animations and Back to Top Button
+document.addEventListener('DOMContentLoaded', function() {
+    // Get elements
+    const footer = document.querySelector('.footer');
+    const moveTopBtn = document.getElementById('movetop');
 
-function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        document.getElementById("movetop").style.display = "block";
-    } else {
-        document.getElementById("movetop").style.display = "none";
+    // Add animation class to footer
+    if (footer) {
+        footer.classList.add('footer-animation');
     }
-}
 
-// When the user clicks on the button, scroll to the top of the document
-function topFunction() {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    // Back to top button functionality
+    if (moveTopBtn) {
+        // Show/hide button based on scroll position
+        window.addEventListener('scroll', function() {
+            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+                moveTopBtn.style.display = 'flex';
+                setTimeout(() => {
+                    moveTopBtn.style.opacity = '1';
+                }, 10);
+            } else {
+                moveTopBtn.style.opacity = '0';
+                setTimeout(() => {
+                    moveTopBtn.style.display = 'none';
+                }, 300);
+            }
+        });
 
-    // Alternative smooth scroll for modern browsers
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+        // Scroll to top when button is clicked
+        moveTopBtn.addEventListener('click', function() {
+            // Smooth scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.9
+        );
+    }
+
+    // Function to animate footer when in viewport
+    function animateFooter() {
+        if (footer && isInViewport(footer)) {
+            footer.classList.add('animate');
+
+            // Remove scroll listener once animation is triggered
+            window.removeEventListener('scroll', animateFooter);
+        }
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', animateFooter);
+
+    // Check on initial load as well
+    setTimeout(animateFooter, 500);
+
+    // Add smooth scrolling for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            // Only process internal links
+            if (this.getAttribute('href').length > 1) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    // Get header height for offset
+                    const headerHeight = document.querySelector('#site-header').offsetHeight;
+
+                    // Calculate position with offset
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                    // Smooth scroll to target
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse.classList.contains('show')) {
+                        document.querySelector('.navbar-toggler').click();
+                    }
+                }
+            }
+        });
     });
-}
+});
