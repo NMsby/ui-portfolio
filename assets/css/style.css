@@ -500,3 +500,158 @@
         font-size: 15px;
     }
 }
+
+/* About Section Styles */
+.w3l-about {
+    background-color: #fff;
+}
+
+.w3l-title-small {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 30px;
+    letter-spacing: 1px;
+    color: #ff6e65;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.w3l-title-main {
+    font-size: 35px;
+    line-height: 45px;
+    font-weight: 700;
+    color: #3f3a64;
+}
+
+.w3l-about-info p {
+    color: #666;
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.my-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.single-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.single-info span {
+    color: #3f3a64;
+    font-weight: 600;
+}
+
+.single-info p,
+.single-info p a {
+    color: #666;
+}
+
+.single-info p a:hover {
+    color: #ff6e65;
+    text-decoration: underline;
+}
+
+/* Social Media Links */
+.follow-social {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.follow-social li {
+    display: inline-block;
+    margin-right: 12px;
+    list-style: none;
+}
+
+.follow-social li h5 {
+    color: #3f3a64;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.follow-social li a {
+    color: #666;
+    width: 36px;
+    height: 36px;
+    background: rgba(230, 230, 230, 0.5);
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 36px;
+    transition: 0.3s ease;
+}
+
+.follow-social li a:hover {
+    background: #ff6e65;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* Button Styles */
+.btn-secondary {
+    color: #fff;
+    background-color: #3f3a64;
+    border-color: #3f3a64;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #2e2949;
+    border-color: #2e2949;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .w3l-title-main {
+        font-size: 32px;
+        line-height: 42px;
+    }
+}
+
+@media (max-width: 991px) {
+    .my-info {
+        grid-template-columns: 1fr;
+    }
+
+    .w3l-title-main {
+        font-size: 30px;
+        line-height: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .w3l-title-main {
+        font-size: 28px;
+        line-height: 38px;
+    }
+
+    .my-info {
+        grid-gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .w3l-title-main {
+        font-size: 26px;
+        line-height: 36px;
+    }
+
+    .single-info {
+        grid-template-columns: 90px 1fr;
+    }
+
+    .follow-social {
+        flex-wrap: wrap;
+    }
+
+    .follow-social li h5 {
+        margin-bottom: 10px;
+    }
+}
