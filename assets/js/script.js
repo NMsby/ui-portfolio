@@ -200,3 +200,124 @@ document.addEventListener('DOMContentLoaded', function() {
 
     animateCounters();
 });
+
+// Portfolio Lightbox
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize lightbox functionality
+    const portfolioItems = document.querySelectorAll('.image-zoom');
+
+    portfolioItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Get the image URL
+            const imgUrl = this.getAttribute('href');
+
+            // Create and show lightbox
+            showLightbox(imgUrl);
+        });
+    });
+
+    // Basic lightbox function
+    function showLightbox(imgUrl) {
+        // Create lightbox elements
+        const lightbox = document.createElement('div');
+        lightbox.className = 'portfolio-lightbox';
+
+        // Create close button
+        const closeBtn = document.createElement('span');
+        closeBtn.className = 'lightbox-close';
+        closeBtn.innerHTML = '&times;';
+
+        // Create image element
+        const img = document.createElement('img');
+        img.src = imgUrl;
+
+        // Append elements to lightbox
+        lightbox.appendChild(closeBtn);
+        lightbox.appendChild(img);
+
+        // Append lightbox to body
+        document.body.appendChild(lightbox);
+
+        // Prevent scrolling
+        document.body.style.overflow = 'hidden';
+
+        // Show lightbox with animation
+        setTimeout(() => {
+            lightbox.style.opacity = '1';
+        }, 10);
+
+        // Close lightbox on click
+        lightbox.addEventListener('click', function() {
+            this.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(this);
+                document.body.style.overflow = '';
+            }, 300);
+        });
+    }
+
+    // Add lightbox styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .portfolio-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .portfolio-lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+        }
+    `;
+
+    document.head.appendChild(style);
+});
+
+// Client Logos Carousel
+document.addEventListener('DOMContentLoaded', function() {
+    $("#owl-demo").owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 2
+            },
+            568: {
+                items: 3
+            },
+            768: {
+                items: 4
+            },
+            1000: {
+                items: 5
+            }
+        }
+    });
+});
