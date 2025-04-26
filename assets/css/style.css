@@ -14,7 +14,7 @@
     --border-radius-full: 35px;
 
     /* Font variables */
-    --font-primary: 'DM Sans', sans-serif;
+    --font-primary: 'DM Sans', 'Dosis', sans-serif;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
