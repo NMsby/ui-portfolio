@@ -108,8 +108,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const cursorSpan = document.querySelector(".cursor");
 
     const textArray = ["Web Designer", "Web Developer", "Photographer", "Freelancer"];
-    const typingDelay = 200;
-    const erasingDelay = 100;
+    const typingDelay = 100;
+    const erasingDelay = 50;
     const newTextDelay = 2000; // Delay between current and next text
     let textArrayIndex = 0;
     let charIndex = 0;
@@ -141,6 +141,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (textArray.length) setTimeout(type, newTextDelay + 250);
+
+    // Parallax effect for hero section
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.pageYOffset;
+        const heroSection = document.querySelector('.w3l-banner');
+
+        if (heroSection) {
+            heroSection.style.backgroundPositionY = scrollPosition * 0.5 + 'px';
+        }
+    });
 });
 
 // Progress bar animation on scroll
