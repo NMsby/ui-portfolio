@@ -1074,3 +1074,137 @@
 .owl-theme .owl-dots .owl-dot:hover span {
     background: #ff6e65;
 }
+
+/* Footer Styles */
+.footer {
+    background: #0f0f0f;
+    color: #fff;
+}
+
+.footer a.logo {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.footer a.logo i {
+    color: #ff6e65;
+    margin-right: 5px;
+}
+
+.footer-contact-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-contact-info ul li {
+    margin: 15px 0;
+}
+
+.contact-text-sub {
+    font-size: 16px;
+    color: #ddd;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.contact-text-sub:hover {
+    color: #ff6e65;
+}
+
+.contact-text-sub span {
+    color: #ff6e65;
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.CopyRights {
+    color: #ddd;
+    font-size: 15px;
+    margin: 0;
+}
+
+.CopyRights a {
+    color: #ff6e65;
+    text-decoration: none;
+}
+
+.CopyRights a:hover {
+    text-decoration: underline;
+}
+
+.social ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.social ul li {
+    margin-left: 10px;
+}
+
+.social ul li a {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    display: inline-block;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 36px;
+    color: #ddd;
+    transition: 0.3s ease;
+}
+
+.social ul li a:hover {
+    background: #ff6e65;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* Back to top button */
+#movetop {
+    position: fixed;
+    bottom: 40px;
+    right: 15px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background: #ff6e65;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    transition: 0.3s ease;
+}
+
+#movetop:hover {
+    background: #3f3a64;
+}
+
+/* Responsive styles */
+@media (max-width: 991px) {
+    .social ul {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer a.logo {
+        font-size: 25px;
+    }
+
+    .contact-text-sub {
+        font-size: 15px;
+    }
+
+    .CopyRights {
+        font-size: 14px;
+    }
+}
