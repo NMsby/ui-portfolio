@@ -234,6 +234,48 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(style);
 });
 
+// Services Section Animations
+document.addEventListener('DOMContentLoaded', function() {
+    // Add animation classes to service cards
+    const serviceCards = document.querySelectorAll('.about-single');
+
+    // Add animation class to each card
+    serviceCards.forEach((card, index) => {
+        card.classList.add('service-card-animation');
+        // Set animation delay based on index
+        card.style.transitionDelay = `${index * 0.2}s`;
+    });
+
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+            rect.bottom >= 0
+        );
+    }
+
+    // Function to animate service cards when in viewport
+    function animateServiceCards() {
+        const servicesSection = document.querySelector('#services');
+
+        if (servicesSection && isInViewport(servicesSection)) {
+            serviceCards.forEach(card => {
+                card.classList.add('animate');
+            });
+
+            // Remove scroll listener once animation is triggered
+            window.removeEventListener('scroll', animateServiceCards);
+        }
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', animateServiceCards);
+
+    // Check on initial load as well
+    setTimeout(animateServiceCards, 500);
+});
+
 // Progress bar animation on scroll
 document.addEventListener('DOMContentLoaded', function() {
     function animateProgressBars() {
