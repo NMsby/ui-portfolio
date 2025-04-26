@@ -1,1 +1,154 @@
-.idea
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Editor directories and files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.project
+.classpath
+.settings/
+*.code-workspace
+
+# Dependency directories
+node_modules/
+jspm_packages/
+bower_components/
+
+# Build outputs
+dist/
+build/
+out/
+.tmp/
+.temp/
+*.min.*
+
+# Debug logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# Cache and lock files
+.npm
+.eslintcache
+.stylelintcache
+.cache/
+.parcel-cache/
+.fusebox/
+.dynamodb/
+.grunt/
+.lock-wscript
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Testing
+coverage/
+.nyc_output/
+.jest/
+*.lcov
+
+# Compiled binary addons
+build/Release
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.bak
+*~
+
+# Deployment related
+.vercel
+.netlify
+.now
+.serverless/
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# SSL certificates
+*.pem
+*.key
+*.crt
+*.cer
+*.priv
+
+# Database
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+# Backup files
+*.backup
+*.old
+*.orig
+
+# Large media files (consider using Git LFS instead)
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+*.psd
+*.ai
+*.sketch
+
+# Local development configuration
+config.local.js
+local.config.js
+
+# Compiled assets
+*.map
+
+# Caches
+.sass-cache/
+.caches/
+
+# WordPress specific
+wp-config.php
+wp-content/advanced-cache.php
+wp-content/backup-db/
+wp-content/backups/
+wp-content/blogs.dir/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/uploads/
+wp-content/mu-plugins/
+wp-content/wp-cache-config.php
+wp-content/plugins/hello.php
+
+# Files that might appear on external drives
+.fseventsd
