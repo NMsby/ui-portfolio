@@ -143,3 +143,60 @@ document.addEventListener('DOMContentLoaded', function() {
 
     animateProgressBars();
 });
+
+// Counter animation for stats section
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to animate counters
+    function animateCounters() {
+        const statsSection = document.querySelector('#stats');
+        const counters = document.querySelectorAll('.counter');
+
+        // Function to check if element is in viewport
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.bottom >= 0
+            );
+        }
+
+        // Counter animation function
+        function startCounting() {
+            if (isElementInViewport(statsSection)) {
+                counters.forEach(counter => {
+                    // Only animate once
+                    if (counter.classList.contains('animated')) return;
+
+                    counter.classList.add('animated');
+
+                    const target = parseInt(counter.innerText);
+                    let count = 0;
+                    const speed = 2000 / target; // Adjust for consistent animation duration
+
+                    const updateCount = () => {
+                        if (count < target) {
+                            count += 1;
+                            counter.innerText = count;
+                            setTimeout(updateCount, speed);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+
+                    updateCount();
+                });
+
+                // Remove scroll listener once animation is triggered
+                window.removeEventListener('scroll', startCounting);
+            }
+        }
+
+        // Add scroll listener
+        window.addEventListener('scroll', startCounting);
+
+        // Check on initial load as well
+        startCounting();
+    }
+
+    animateCounters();
+});
