@@ -1450,34 +1450,128 @@ img {
 
 /* Skills Section Styles */
 .w3l-skills {
-    background-color: #fff;
+    background-color: var(--background-white);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
 }
 
+.w3l-skills::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(rgba(255, 110, 101, 0.1) 0%, rgba(255, 110, 101, 0) 70%);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+/* Skills image */
+.w3l-skills img {
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
+
+.w3l-skills img:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Skills content */
+.w3l-content-6 {
+    position: relative;
+    z-index: 1;
+}
+
+.w3l-content-6 h6 {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.w3l-content-6 h3 {
+    font-size: 35px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin-bottom: 20px;
+}
+
+.w3l-content-6 p {
+    color: var(--font-color);
+    font-size: 16px;
+    line-height: 28px;
+    margin-bottom: 30px;
+}
+
+/* Progress bars */
 .progress-info {
     margin-bottom: 30px;
 }
 
 .progress-tittle {
     font-size: 16px;
-    color: #3f3a64;
-    margin-bottom: 10px;
     font-weight: 600;
+    color: var(--heading-color);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.progress-tittle .progress-value {
+    color: var(--primary-color);
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.progress-tittle .progress-value.active {
+    opacity: 1;
 }
 
 .progress {
     height: 8px;
-    background-color: #eee;
+    background-color: #e6e6e6;
+    border-radius: 10px;
     overflow: hidden;
-    border-radius: 30px;
+    position: relative;
 }
 
 .progress-bar {
-    background-color: #ff6e65;
-    height: 8px;
-    border-radius: 30px;
-    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    position: relative;
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    width: 0;
+    transition: width 1.5s cubic-bezier(0.1, 0.5, 0.1, 1);
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.2) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 255, 255, 0.2) 75%,
+            transparent 75%,
+            transparent
+    );
     background-size: 1rem 1rem;
     animation: progress-animation 1s linear infinite;
+    border-radius: 10px;
 }
 
 @keyframes progress-animation {
@@ -1489,16 +1583,77 @@ img {
     }
 }
 
-/* Add animation to progress bars on scroll */
-.progress-bar-animate {
-    width: 0 !important;
-    transition: width 1.5s ease-in-out;
+/* Skills section animations */
+.skills-content-animation {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 1s ease;
+}
+
+.skills-image-animation {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 1s ease;
+}
+
+.skills-content-animation.animate,
+.skills-image-animation.animate {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* Responsive styles */
+@media (max-width: 1200px) {
+    .w3l-content-6 h3 {
+        font-size: 32px;
+    }
+}
+
 @media (max-width: 991px) {
+    .w3l-skills {
+        padding: 80px 0;
+    }
+
+    .w3l-content-6 h3 {
+        font-size: 28px;
+    }
+
     .w3l-content-6 p {
-        margin-bottom: 30px;
+        font-size: 15px;
+        line-height: 26px;
+        margin-bottom: 25px;
+    }
+
+    .progress-tittle {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .w3l-skills {
+        padding: 60px 0;
+    }
+
+    .w3l-content-6 h3 {
+        font-size: 26px;
+    }
+
+    .progress-info {
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .w3l-skills {
+        padding: 50px 0;
+    }
+
+    .w3l-content-6 h3 {
+        font-size: 24px;
+    }
+
+    .progress-info {
+        margin-bottom: 20px;
     }
 }
 

@@ -276,52 +276,82 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(animateServiceCards, 500);
 });
 
-// Progress bar animation on scroll
+// Skills Section Animations
 document.addEventListener('DOMContentLoaded', function() {
-    function animateProgressBars() {
-        const progressSection = document.querySelector('#skills');
-        const progressBars = document.querySelectorAll('.progress-bar');
+    // Get elements
+    const skillsSection = document.querySelector('#skills');
+    const progressBars = document.querySelectorAll('.progress-bar');
+    const progressValues = document.querySelectorAll('.progress-value');
+    const skillsContent = document.querySelector('.w3l-content-6');
+    const skillsImage = document.querySelector('.w3l-skills .col-lg-6:first-child');
 
-        // Add initial class to set width to 0
-        progressBars.forEach(bar => {
-            bar.classList.add('progress-bar-animate');
-        });
-
-        // Function to check if element is in viewport
-        function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.bottom >= 0
-            );
-        }
-
-        // Function to animate progress bars when in viewport
-        function checkProgress() {
-            if (isElementInViewport(progressSection)) {
-                progressBars.forEach(bar => {
-                    const width = bar.getAttribute('aria-valuenow') + '%';
-
-                    // Remove the animate class to trigger the transition
-                    setTimeout(function() {
-                        bar.classList.remove('progress-bar-animate');
-                        bar.style.width = width;
-                    }, 200);
-                });
-
-                // Remove scroll listener once animation is triggered
-                window.removeEventListener('scroll', checkProgress);
-            }
-        }
-
-        // Add scroll listener
-        window.addEventListener('scroll', checkProgress);
-
-        // Check on initial load as well
-        checkProgress();
+    // Add animation classes
+    if (skillsContent) {
+        skillsContent.classList.add('skills-content-animation');
     }
 
-    animateProgressBars();
+    if (skillsImage) {
+        skillsImage.classList.add('skills-image-animation');
+    }
+
+    // Add progress values to each progress title
+    progressBars.forEach((bar, index) => {
+        const value = bar.getAttribute('aria-valuenow');
+        const progressTitle = bar.closest('.progress-info').querySelector('.progress-tittle');
+
+        // Create value span if it doesn't exist
+        if (!progressTitle.querySelector('.progress-value')) {
+            const valueSpan = document.createElement('span');
+            valueSpan.className = 'progress-value';
+            valueSpan.textContent = value + '%';
+            progressTitle.appendChild(valueSpan);
+        }
+    });
+
+    // Function to check if element is in viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+            rect.bottom >= 0
+        );
+    }
+
+    // Function to animate skills section when in viewport
+    function animateSkillsSection() {
+        if (skillsSection && isInViewport(skillsSection)) {
+            // Animate content and image
+            if (skillsContent) {
+                skillsContent.classList.add('animate');
+            }
+
+            if (skillsImage) {
+                skillsImage.classList.add('animate');
+            }
+
+            // Animate progress bars with delay
+            progressBars.forEach((bar, index) => {
+                const value = bar.getAttribute('aria-valuenow');
+                const valueElement = bar.closest('.progress-info').querySelector('.progress-value');
+
+                setTimeout(() => {
+                    bar.style.width = value + '%';
+                    if (valueElement) {
+                        valueElement.classList.add('active');
+                    }
+                }, 500 + (index * 200));
+            });
+
+            // Remove scroll listener once animation is triggered
+            window.removeEventListener('scroll', animateSkillsSection);
+        }
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', animateSkillsSection);
+
+    // Check on initial load as well
+    setTimeout(animateSkillsSection, 500);
 });
 
 // Counter animation for stats section
