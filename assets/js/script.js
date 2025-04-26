@@ -1,80 +1,224 @@
-// Header scroll class
-$(window).on("scroll", function () {
-    var scroll = $(window).scrollTop();
-    if (scroll >= 80) {
-        $("#site-header").addClass("nav-fixed");
-    } else {
-        $("#site-header").removeClass("nav-fixed");
+// Navigation & Scroll Effects
+document.addEventListener('DOMContentLoaded', function() {
+    // Fixed header on scroll with smooth transition
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('site-header');
+        const scrollPosition = window.scrollTop || document.documentElement.scrollTop;
+
+        if (scrollPosition >= 80) {
+            header.classList.add('nav-fixed');
+        } else {
+            header.classList.remove('nav-fixed');
+        }
+    });
+
+    // Active menu item highlighting based on scroll position
+    function updateActiveMenuItem() {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollPosition = window.scrollY;
+
+        // Get header height for offset calculation
+        const headerHeight = document.querySelector('#site-header').offsetHeight;
+
+        // Check each section's position
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - headerHeight - 10; // Subtract header height and a small offset
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+
+            // If the scroll position is within the section
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                // Remove active class from all menu items
+                document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Add active class to corresponding menu item
+                const correspondingLink = document.querySelector(`.navbar-nav .nav-link[href="#${sectionId}"]`);
+                if (correspondingLink) {
+                    correspondingLink.classList.add('active');
+                }
+            }
+        });
     }
-});
 
-// Mobile menu toggle
-$(document).ready(function () {
-    $('.navbar-toggler').click(function () {
-        $('body').toggleClass('noscroll');
-        $(this).toggleClass('collapsed');
-    });
+    // Call the function on scroll
+    window.addEventListener('scroll', updateActiveMenuItem);
 
-    // Add dropdown toggle functionality for mobile
-    $('.dropdown-toggle').click(function(e) {
-        if (window.innerWidth < 992) {
-            e.preventDefault();
-            $(this).parent().toggleClass('show');
-            $(this).next('.dropdown-menu').toggleClass('show');
-        }
-    });
+    // Call it once on page load
+    updateActiveMenuItem();
 
-    // Close mobile menu when clicking outside
-    $(document).click(function(e) {
-        if (!$(e.target).closest('.navbar-collapse, .navbar-toggler').length) {
-            $('.navbar-collapse').removeClass('show');
-            $('.navbar-toggler').addClass('collapsed');
-            $('body').removeClass('noscroll');
-        }
-    });
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            // Skip empty anchors or links with just '#'
+            if (this.getAttribute('href') !== '#' && this.getAttribute('href').length > 1) {
+                e.preventDefault();
 
-    // Active link highlighting based on scroll position
-    $(window).on('scroll', function() {
-        $('.navbar-nav .nav-link').each(function() {
-            var currLink = $(this);
-            var refElement = $(currLink.attr('href'));
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
 
-            if (refElement.length) {
-                var offsetTop = refElement.offset().top - 100;
-                var offsetBottom = offsetTop + refElement.outerHeight();
+                if (targetElement) {
+                    // Get header height for offset
+                    const headerHeight = document.querySelector('#site-header').offsetHeight;
 
-                if ($(window).scrollTop() >= offsetTop && $(window).scrollTop() <= offsetBottom) {
-                    $('.navbar-nav .nav-link').removeClass('active');
-                    currLink.addClass('active');
+                    // Calculate position with offset
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                    // Smooth scroll to target
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse.classList.contains('show')) {
+                        document.querySelector('.navbar-toggler').click();
+                    }
+
+                    // Update URL hash without scrolling
+                    history.pushState(null, null, targetId);
                 }
             }
         });
     });
-});
 
-// Search functionality
-// Search functionality
-$('.cd-search-trigger').on('click', function(event){
-    event.preventDefault();
-    $('.cd-search').toggleClass('is-visible');
+    // Mobile menu toggle functionality
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
 
-    if ($('.cd-search').hasClass('is-visible')) {
-        $('.cd-search input[type="search"]').focus();
+    if (navbarToggler && navbarCollapse) {
+        navbarToggler.addEventListener('click', function() {
+            navbarCollapse.classList.toggle('show');
+            this.classList.toggle('collapsed');
+            document.body.classList.toggle('noscroll');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (
+                navbarCollapse.classList.contains('show') &&
+                !navbarCollapse.contains(e.target) &&
+                !navbarToggler.contains(e.target)
+            ) {
+                navbarCollapse.classList.remove('show');
+                navbarToggler.classList.add('collapsed');
+                document.body.classList.remove('noscroll');
+            }
+        });
     }
 
-    // Close search when clicking elsewhere
-    $('body').on('click', function(e) {
-        if (!$(e.target).closest('.cd-search, .cd-search-trigger').length) {
-            $('.cd-search').removeClass('is-visible');
+    // Dropdown menu functionality for mobile
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            // Only handle dropdown toggle on mobile
+            if (window.innerWidth < 992) {
+                e.preventDefault();
+
+                const parent = this.parentElement;
+                const dropdown = this.nextElementSibling;
+
+                // Toggle active class on parent
+                parent.classList.toggle('show');
+
+                // Toggle dropdown visibility
+                if (dropdown.style.display === 'block') {
+                    dropdown.style.display = 'none';
+                } else {
+                    dropdown.style.display = 'block';
+                }
+            }
+        });
+    });
+
+    // Add parallax scrolling effect to sections with background
+    function addParallaxEffect() {
+        const parallaxSections = [
+            document.querySelector('.w3l-banner'),
+            document.querySelector('.w3l-stats-section')
+        ];
+
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+
+            parallaxSections.forEach(section => {
+                if (section) {
+                    // Only apply parallax if element exists
+                    const speed = 0.5; // Adjust speed as needed
+                    const yPos = -(scrollPosition * speed);
+                    section.style.backgroundPositionY = yPos + 'px';
+                }
+            });
+        });
+    }
+
+    // Initialize parallax effect
+    addParallaxEffect();
+
+    // Search functionality
+    const searchTrigger = document.querySelector('.cd-search-trigger');
+    const searchForm = document.querySelector('#cd-search');
+
+    if (searchTrigger && searchForm) {
+        searchTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Toggle search form visibility
+            searchForm.classList.toggle('is-visible');
+
+            // Focus search input if visible
+            if (searchForm.classList.contains('is-visible')) {
+                searchForm.querySelector('input[type="search"]').focus();
+            }
+        });
+
+        // Close search when clicking outside
+        document.addEventListener('click', function(e) {
+            if (
+                searchForm.classList.contains('is-visible') &&
+                !searchForm.contains(e.target) &&
+                !searchTrigger.contains(e.target)
+            ) {
+                searchForm.classList.remove('is-visible');
+            }
+        });
+
+        // Close search on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && searchForm.classList.contains('is-visible')) {
+                searchForm.classList.remove('is-visible');
+            }
+        });
+    }
+
+    // Initialize page on load
+    window.addEventListener('load', function() {
+        // Check if URL has hash and scroll to it with offset
+        if (window.location.hash) {
+            const targetId = window.location.hash;
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                // Wait a bit for page to fully load
+                setTimeout(function() {
+                    // Get header height for offset
+                    const headerHeight = document.querySelector('#site-header').offsetHeight;
+
+                    // Calculate position with offset
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+                    // Smooth scroll to target
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 500);
+            }
         }
     });
-});
-
-// Close search on escape key
-$(document).keyup(function(e) {
-    if (e.key === "Escape" && $('.cd-search').hasClass('is-visible')) {
-        $('.cd-search').removeClass('is-visible');
-    }
 });
 
 // Dark mode toggle
